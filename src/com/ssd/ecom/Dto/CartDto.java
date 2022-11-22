@@ -1,0 +1,17 @@
+package com.ssd.ecom.Dto;
+
+public class CartDto extends ProductDto {
+	private int quantity;
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	
+	
+	
+}
