@@ -38,7 +38,7 @@ public class OrdersDisplayServlet extends HttpServlet {
 		
 		
 		List<OrderDto> orderList = orderService.getOrders(edto.getId());
-		System.out.println(orderList);
+		//System.out.println(orderList);
 		request.setAttribute("orderList", orderList);
 		
 		request.getRequestDispatcher("Order.jsp").forward(request, response);

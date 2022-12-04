@@ -34,17 +34,23 @@ public class OrdersServlet extends HttpServlet {
   
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<CartDto> oldCartList= (List<CartDto>) request.getSession().getAttribute("cart_list");
+		if(oldCartList!=null) {
 		int index=0;
 		SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
 		
 		Date date=new Date();
 		String strDate=formatter.format(date);
+		System.out.println(request.getParameter("id")+" "+"orderservelet");
 		//int productId=Integer.parseInt(request.getParameter("id"));
 		int productId=Integer.parseInt(request.getParameter("id"));
+		System.out.println(productId+" "+"productid");
+		
 		userDto ecomDto =(userDto) request.getSession().getAttribute("user");
 		int id=ecomDto.getId();
+		System.out.println(id+"id");
 		int quantity=0;
-		List<CartDto> oldCartList= (List<CartDto>) request.getSession().getAttribute("cart_list");
+		
 				for(CartDto dto:oldCartList) {
 			if(dto.getId()==productId) {
 				quantity=dto.getQuantity();
@@ -56,15 +62,20 @@ public class OrdersServlet extends HttpServlet {
 		OrderDto odto=new OrderDto();
 		odto.setDate(strDate);
 		odto.setQuantity(quantity);
-		odto.setId(id);
+		odto.setuId(id);
 		odto.setId(productId);
+		System.out.println(odto+"data");
 		boolean isOrderCreate = service.saveOrder(odto);
 		
 		if(isOrderCreate) {
-		
+		System.out.println("successfully saved");
 			oldCartList.remove(index);
-					response.sendRedirect("./OrderDisplayServlet");
+					response.sendRedirect("./OrdersDisplayServlet");
 		}else {
+			System.out.println("successfully not saved");
+			response.sendRedirect("./CartDisplayServlet");
+		}}
+		else {
 			response.sendRedirect("./CartDisplayServlet");
 		}
 	}

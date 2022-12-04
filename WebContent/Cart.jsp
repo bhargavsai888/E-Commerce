@@ -33,8 +33,12 @@
 							<h1 class="display-6">${p.getName()}</h1>
 							<h6 class="price">Price: ${p.getPrice()}</h6>
 							<h6 class="category">Category:${p.getCategory()}</h6>
-							<button type="button" class="btn btn-primary" ><a href="./OrdersServlet"></a>BUY NOW</button>
-							<button type="button" class="btn btn-danger">REMOVE</button>
+							<div class="mt-3 d-flex justify-content-between">
+							<a class=" btn btn-primary" role="button" href="./OrdersServlet?id=${p.getId()}">Buy</a>
+										
+							<a class="btn btn-danger" href="./IncDecServlet?action=rmv&id=${p.getId()}" role="button">Remove<i
+										class="fas fa-Remove-square"></i></a>
+						</div>
 							<form action="" method="post" class="form-inline">
 								<input type="hidden" name="id" value="1" class="form-input">
 								<div class="mt-4 d-flex justify-content-between">

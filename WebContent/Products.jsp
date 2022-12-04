@@ -30,7 +30,7 @@
 						<div class="mt-3 d-flex justify-content-between">
 							<a class="btn btn-dark" href="add-to-cart?id=${p.getId()}">Add
 								to Cart</a> <a class="btn btn-primary"
-								href="order-now?quantity=1&id=${p.getId()}">Buy Now</a>
+								href="OrdersServlet?quantity=1&id=${p.getId()}">Buy Now</a>
 						</div>
 					</div>
 				</div>

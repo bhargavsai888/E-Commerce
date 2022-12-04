@@ -44,7 +44,13 @@
 						<td>${ol.getPrice()}</td>
 						
 						<td>
-						<a href="./IncDecServlet?action=rmv&id=${ol.getOrderId()}" class="btn btn-danger">Cancel</a>
+						<div>
+						<c:forEach var="p" items="${cart_list}">
+						<a href="./IncDecServlet?action=cnl&id=${p.getId()}"  class="btn btn-danger">Cancel</a>
+						
+						</c:forEach>
+						</div>
+						
 						</td>
 					</tr>
 

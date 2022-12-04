@@ -60,6 +60,11 @@ public class IncDecServlet extends HttpServlet {
 
 				}
 			}
+			oldCartList.remove(pos);
+			oldCartList.add(pos, newCartDto);
+			request.getSession().setAttribute("cart_list", oldCartList);
+			response.sendRedirect("./CartDisplayServlet");
+			
 			
 		} else if (incOrDec.equals("dec")) {
 
@@ -91,12 +96,21 @@ public class IncDecServlet extends HttpServlet {
 				}
 			}
 
-			response.sendRedirect("./CartDisplayServlet");
-}
-		oldCartList.remove(pos);
-		oldCartList.add(pos, newCartDto);
-		request.getSession().setAttribute("cart_list", oldCartList);
 		response.sendRedirect("./CartDisplayServlet");
+}
+		if (incOrDec.equals("cnl")) {
+			for (CartDto dto : oldCartList) {
+				if (dto.getId() == productId) {
+					if (oldCartList.remove(oldCartList.indexOf(dto)) != null) {
+
+						break;
+					}
+				}
+			}
+
+		response.sendRedirect("./OrdersServlet");
+}
+		
 
 	}
 

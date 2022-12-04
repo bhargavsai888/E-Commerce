@@ -28,7 +28,8 @@ public class OrderDaoImpl implements OrderDaoInterface {
 		private String ORDER_INSERT = "insert into orders(uId,pId,quantity,date)"
 				+ " values(?,?,?,?)";
 		 //orderId, uId, pId, quantity, date
-		private String GET_ALL_ORDERS = "select date,name,catagorey,quantity,price from orders o inner join product p on o.pId = p.id where uId=";
+		private String GET_ALL_ORDERS="SELECT o.id,o.date,o.quantity,p.name,p.category,p.price FROM orders o "
+				+ "inner join products p on o.pId=p.id where uId=";
 
 		public OrderDaoImpl() {
 			conn =dbConnection.getConnection();
@@ -41,6 +42,7 @@ public class OrderDaoImpl implements OrderDaoInterface {
 			try {
 				ps=conn.prepareStatement(ORDER_INSERT);
 				ps.setInt(1, dto.getuId());
+				System.out.println(dto.getuId()+" "+"good");
 				ps.setInt(2, dto.getId());
 				ps.setInt(3, dto.getQuantity());
 				ps.setString(4, dto.getDate());
@@ -59,18 +61,17 @@ public class OrderDaoImpl implements OrderDaoInterface {
 		public List<OrderDto> getOrders(int id) {
 			List<OrderDto> orderList = new ArrayList<>();
 			try {
-				stmt = conn.createStatement();
-				rs = stmt.executeQuery(GET_ALL_ORDERS + id);
+				stmt=conn.createStatement();
+				rs=stmt.executeQuery(GET_ALL_ORDERS+id);
 				while(rs.next()) {
-					OrderDto dto = new OrderDto();
-					
+					OrderDto dto=new OrderDto();
+					dto.setOrderId(rs.getInt("id"));
 					dto.setDate(rs.getString("date"));
 					dto.setQuantity(rs.getInt("quantity"));
 					dto.setName(rs.getString("name"));
 					dto.setCategory(rs.getString("category"));
-					double price = rs.getInt("price") * rs.getInt("quantity");
+					double price = rs.getDouble("price")*rs.getInt("quantity");
 					dto.setPrice(price);
-					
 					orderList.add(dto);
 					
 				}
